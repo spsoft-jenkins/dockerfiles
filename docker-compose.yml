@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+  testing-server:
+    container_name: testing-server
+    image: testing-server
+    build: 
+      dockerfile: Dockerfile
+      context: test/    
+    volumes:
+      - /test/target/:/target  
+
+  ozap:
+    container_name: zap
+    image: owasp/zap2docker-bare:2.7.0
+    command: ["zap.sh" ]
+    ports:
+      - "127.0.0.1:8081:8081"
+    volumes:
+      - /test/target/:/target  
+        
+    
